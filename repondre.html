@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Répondre au Questionnaire</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header>
+        <h1>Répondre au Questionnaire</h1>
+    </header>
+    <main>
+        <section id="repondre">
+            <h2>Répondez au Questionnaire</h2>
+            <form id="form-reponse">
+                <div id="questionnaire-to-answer"></div>
+                <button type="submit">Soumettre</button>
+            </form>
+        </section>
+    </main>
+    <script>
+        const params = new URLSearchParams(window.location.search);
+        const name = params.get('name');
+        const questionnaires = JSON.parse(localStorage.getItem('questionnaires')) || [];
+        const questionnaire = questionnaires.find((q) => q.name === name);
+
+        if (questionnaire) {
+            const div = document.getElementById('questionnaire-to-answer');
+            div.innerHTML = `
+                <h3>${questionnaire.name}</h3>
+                ${questionnaire.questions.map((q, index) => `
+                    <p>${q.question}</p>
+                    ${q.responses.map((r) => `<label><input type="radio" name="q${index}" value="${r}"> ${r}</label>`).join('<br>')}
+                `).join('')}
+            `;
+        }
+    </script>
+</body>
+</html>
