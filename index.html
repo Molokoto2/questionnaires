@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Suivi d'Entraînement</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header>
+        <h1>Suivi d'Entraînement</h1>
+    </header>
+    
+    <section id="calendar">
+        <h2>Calendrier d'Entraînements</h2>
+        <div id="calendar-view"></div>
+        <button id="add-exercise-btn">Ajouter un Exercice</button>
+    </section>
+
+    <section id="exercise-form" style="display: none;">
+        <h2>Ajouter un Exercice</h2>
+        <form id="exercise-form-element">
+            <label for="exercise-type">Type d'exercice:</label>
+            <select id="exercise-type" required>
+                <option value="aero">Aérobie</option>
+                <option value="anaero">Anaérobie</option>
+                <option value="force">Force</option>
+                <!-- Ajoute d'autres types d'exercices -->
+            </select>
+            <label for="duration">Durée (minutes):</label>
+            <input type="number" id="duration" required min="1">
+            <label for="intensity">Intensité ressentie (1-10):</label>
+            <input type="number" id="intensity" required min="1" max="10">
+            <label for="muscle-group">Groupe musculaire:</label>
+            <input type="text" id="muscle-group" required>
+            <label for="date">Date de l'exercice:</label>
+            <input type="date" id="date" required>
+            <button type="submit">Ajouter l'Exercice</button>
+        </form>
+    </section>
+
+    <section id="dashboard">
+        <h2>Tableau de Bord</h2>
+        <div id="stats">
+            <p id="charge">Charge d'entraînement: 0</p>
+            <p id="contrainte">Contrainte d'entraînement: 0</p>
+            <p id="monotonie">Monotonie: 0</p>
+            <p id="indice-forme">Indice de forme: 0</p>
+            <p id="recovery-time">Temps de récupération: 0</p>
+            <p id="traces-positives">Traces positives: 0</p>
+        </div>
+    </section>
+
+    <script src="script.js"></script>
+</body>
+</html>
