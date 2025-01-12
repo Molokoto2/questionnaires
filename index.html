@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Création de Questionnaire</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script> <!-- Ajout de Chart.js pour les graphiques -->
+</head>
+<body>
+    <header>
+        <h1>Création de Questionnaire</h1>
+    </header>
+
+    <main>
+        <section id="questionnaire">
+            <h2>Répondez au questionnaire</h2>
+            <form id="questionnaire-form">
+                <!-- Les questions seront ajoutées dynamiquement ici -->
+            </form>
+            <button type="submit" id="submit-btn">Soumettre</button>
+            <div id="validation-message" style="color: red; margin-top: 10px;"></div>
+        </section>
+
+        <section id="resultats">
+            <h2>Résultats du Questionnaire</h2>
+            <table id="results-table">
+                <thead>
+                    <tr>
+                        <th>Réponse</th>
+                        <th>Temps de Soumission</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-- Les résultats des réponses seront ajoutés ici -->
+                </tbody>
+            </table>
+            <h3>Analyse des Réponses</h3>
+            <canvas id="response-chart" width="400" height="200"></canvas> <!-- Graphique pour l'analyse -->
+        </section>
+    </main>
+
+    <script src="script.js"></script>
+</body>
+</html>
