@@ -8,16 +8,17 @@
 </head>
 <body>
     <header>
-        <h1>Création de Questionnaire</h1>
+        <h1>Créer un Questionnaire</h1>
     </header>
     <main>
         <section id="creation">
-            <h2>Créer un Nouveau Questionnaire</h2>
             <button id="start-questionnaire">Créer un Questionnaire</button>
-            <button id="add-question">Ajouter une Question</button>
-            <button id="finalize-questionnaire">Finaliser le Questionnaire</button>
+            <button id="add-question" disabled>Ajouter une Question</button>
+            <button id="finalize-questionnaire" disabled>Finaliser le Questionnaire</button>
+        </section>
+        <section id="questionnaires-list">
             <h2>Questionnaires créés</h2>
-            <div id="questionnaires-list"></div>
+            <div id="list"></div>
         </section>
     </main>
     <script src="script-creation.js"></script>
