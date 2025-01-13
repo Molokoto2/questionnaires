@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Résultats des Questionnaires</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header>
+        <h1>Résultats des Questionnaires</h1>
+    </header>
+    <main>
+        <section id="results">
+            <h2>Résultats par Questionnaire</h2>
+            <div id="results-container"></div>
+        </section>
+    </main>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script>
+        const responses = JSON.parse(localStorage.getItem('responses')) || {};
+        const questionnaires = JSON.parse(localStorage.getItem('questionnaires')) || [];
+
+        const container = document.getElementById('results-container');
+        questionnaires.forEach(questionnaire => {
+            const section = document.createElement('section');
+            section.innerHTML = `<h3>${questionnaire.name}</h3>`;
+
+            const table = document.createElement('table');
+            table.border = '1';
+            const headers = ['Remplissage', ...questionnaire.questions.map(q => q.question)];
+            table.innerHTML = `
+                <thead>
+                    <tr>${headers.map(h => `<th>${h}</th>`).join('')}</tr>
+                </thead>
+                <tbody>
+                    ${responses[questionnaire.name]?.map((r, i) => `
+                        <tr>
+                            <td>${i + 1}</td>
+                            ${r.map(answer => `<td>${answer.response}</td>`).join('')}
+                        </tr>
+                    `).join('') || '<tr><td colspan="100%">Aucune réponse</td></tr>'}
+                </tbody>
+            `;
+            section.appendChild(table);
+
+            questionnaire.questions.forEach((q, index) => {
+                const data = responses[questionnaire.name]?.map(r => r[index]?.response) || [];
+                const counts = q.responses.reduce((acc, res) => {
+                    acc[res] = data.filter(d => d === res).length;
+                    return acc;
+                }, {});
+
+                const canvas = document.createElement('canvas');
+                section.appendChild(canvas);
+
+                new Chart(canvas, {
+                    type: 'pie',
+                    data: {
+                        labels: Object.keys(counts),
+                        datasets: [{
+                            label: `Répartition des réponses : ${q.question}`,
+                            data: Object.values(counts),
+                            backgroundColor: ['#007BFF', '#28A745', '#DC3545', '#FFC107', '#6C757D'],
+                        }]
+                    }
+                });
+            });
+
+            container.appendChild(section);
+        });
+    </script>
+</body>
+</html>
