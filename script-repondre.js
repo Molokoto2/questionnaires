@@ -1,17 +1,20 @@
-document.addEventListener('DOMContentLoaded', function() {
-    const params = new URLSearchParams(window.location.search);
-    const name = params.get('name');
-    const questionnaires = JSON.parse(localStorage.getItem('questionnaires')) || [];
-    const questionnaire = questionnaires.find(q => q.name === name);
+const params = new URLSearchParams(window.location.search);
+const questionnaireName = params.get('name');
+const questionnaires = JSON.parse(localStorage.getItem('questionnaires')) || [];
 
-    if (questionnaire) {
-        const div = document.getElementById('questionnaire-to-answer');
+const questionnaire = questionnaires.find(q => q.name === questionnaireName);
+if (!questionnaire) {
+    document.body.innerHTML = '<h1>Questionnaire introuvable</h1>';
+} else {
+    document.getElementById('questionnaire-title').innerText = questionnaire.name;
+
+    const form = document.getElementById('questionnaire-form');
+    questionnaire.questions.forEach((q, index) => {
+        const div = document.createElement('div');
         div.innerHTML = `
-            <h3>${questionnaire.name}</h3>
-            ${questionnaire.questions.map(q => `
-                <p>${q.question}</p>
-                ${q.responses.map(r => `<label><input type="radio" name="${q.question}" value="${r}"> ${r}</label>`).join('<br>')}
-            `).join('')}
+            <h3>${q.question}</h3>
+            ${q.responses.map(r => `<label><input type="radio" name="q${index}" value="${r}"> ${r}</label>`).join('<br>')}
         `;
-    }
-});
+        form.appendChild(div);
+    });
+}
