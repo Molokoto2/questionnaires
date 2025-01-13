@@ -11,30 +11,12 @@
         <h1>Répondre au Questionnaire</h1>
     </header>
     <main>
-        <section id="repondre">
-            <h2>Répondez au Questionnaire</h2>
-            <form id="form-reponse">
-                <div id="questionnaire-to-answer"></div>
-                <button type="submit">Soumettre</button>
-            </form>
+        <section id="questions-container">
+            <h2 id="questionnaire-title"></h2>
+            <form id="questionnaire-form"></form>
+            <button id="submit-response">Envoyer</button>
         </section>
     </main>
-    <script>
-        const params = new URLSearchParams(window.location.search);
-        const name = params.get('name');
-        const questionnaires = JSON.parse(localStorage.getItem('questionnaires')) || [];
-        const questionnaire = questionnaires.find((q) => q.name === name);
-
-        if (questionnaire) {
-            const div = document.getElementById('questionnaire-to-answer');
-            div.innerHTML = `
-                <h3>${questionnaire.name}</h3>
-                ${questionnaire.questions.map((q, index) => `
-                    <p>${q.question}</p>
-                    ${q.responses.map((r) => `<label><input type="radio" name="q${index}" value="${r}"> ${r}</label>`).join('<br>')}
-                `).join('')}
-            `;
-        }
-    </script>
+    <script src="script-repondre.js"></script>
 </body>
 </html>
