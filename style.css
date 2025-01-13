@@ -2,30 +2,21 @@ body {
     font-family: Arial, sans-serif;
     margin: 0;
     padding: 0;
-    line-height: 1.6;
 }
-
 header {
-    background: #0078D7;
+    background-color: #007BFF;
     color: white;
-    padding: 10px 0;
+    padding: 1rem;
     text-align: center;
 }
-
 main {
-    padding: 20px;
+    padding: 2rem;
 }
-
-nav a {
-    display: inline-block;
-    margin: 10px;
-    padding: 10px;
-    background: #0078D7;
+button {
+    margin: 1rem 0;
+    padding: 0.5rem 1rem;
+    background-color: #007BFF;
     color: white;
-    text-decoration: none;
-    border-radius: 5px;
-}
-
-nav a:hover {
-    background: #0056A3;
+    border: none;
+    cursor: pointer;
 }
