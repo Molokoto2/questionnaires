@@ -1,0 +1,60 @@
+/* Conteneur pour les graphiques */
+.chart-container {
+    display: flex;
+    justify-content: center; /* Centrer les graphiques */
+    align-items: center;
+    margin: 10px auto; /* Réduction des marges */
+    width: 200px; /* Taille fixe du conteneur */
+    height: 200px; /* Taille fixe du conteneur */
+    overflow: hidden; /* Empêche le débordement */
+}
+
+/* Réduire l'espacement entre les sections */
+section {
+    margin-bottom: 15px;
+}
+
+/* Réduction des marges internes */
+section h3 {
+    margin-bottom: 8px;
+}
+
+section table {
+    margin-bottom: 8px;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+}
+header {
+    background-color: #007BFF;
+    color: white;
+    padding: 1rem;
+    text-align: center;
+}
+main {
+    padding: 2rem;
+}
+button {
+    margin: 1rem 0;
+    padding: 0.5rem 1rem;
+    background-color: #007BFF;
+    color: white;
+    border: none;
+    cursor: pointer;
+}
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 2rem;
+}
+table th, table td {
+    padding: 0.5rem;
+    text-align: center;
+}
+canvas {
+    margin: 1rem 0;
+    max-width: 400px;
+}
