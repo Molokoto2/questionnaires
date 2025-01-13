@@ -1,67 +1,51 @@
-// Liste des questionnaires sauvegardés
 let questionnaires = JSON.parse(localStorage.getItem('questionnaires')) || [];
-let currentQuestionnaire = null; // Questionnaire en cours de création
+let currentQuestionnaire = null;
 
-// Fonction pour afficher tous les questionnaires créés
+document.getElementById('start-questionnaire').addEventListener('click', function () {
+    const name = prompt('Nom du questionnaire :');
+    if (!name) return alert('Veuillez entrer un nom.');
+
+    currentQuestionnaire = { name, questions: [] };
+    alert(`Questionnaire "${name}" créé.`);
+    document.getElementById('add-question').disabled = false;
+    document.getElementById('finalize-questionnaire').disabled = false;
+});
+
+document.getElementById('add-question').addEventListener('click', function () {
+    if (!currentQuestionnaire) return alert('Créez un questionnaire d\'abord.');
+    const questionText = prompt('Texte de la question :');
+    const responses = prompt('Réponses possibles (séparées par une virgule) :').split(',');
+
+    currentQuestionnaire.questions.push({ question: questionText, responses });
+    alert('Question ajoutée.');
+});
+
+document.getElementById('finalize-questionnaire').addEventListener('click', function () {
+    if (!currentQuestionnaire || currentQuestionnaire.questions.length === 0) {
+        return alert('Ajoutez des questions avant de finaliser.');
+    }
+
+    questionnaires.push(currentQuestionnaire);
+    localStorage.setItem('questionnaires', JSON.stringify(questionnaires));
+    alert(`Questionnaire "${currentQuestionnaire.name}" sauvegardé.`);
+    currentQuestionnaire = null;
+    document.getElementById('add-question').disabled = true;
+    document.getElementById('finalize-questionnaire').disabled = true;
+    displayQuestionnaires();
+});
+
 function displayQuestionnaires() {
-    const list = document.getElementById('questionnaires-list');
-    list.innerHTML = ''; // Effacer la liste existante
-
-    questionnaires.forEach((q) => {
+    const list = document.getElementById('list');
+    list.innerHTML = '';
+    questionnaires.forEach(q => {
         const link = `${window.location.origin}/repondre.html?name=${encodeURIComponent(q.name)}`;
         const div = document.createElement('div');
-        div.classList.add('questionnaire-item');
         div.innerHTML = `
             <h3>${q.name}</h3>
-            <p>Questions :</p>
-            <ul>
-                ${q.questions.map((question) => `<li>${question.question}</li>`).join('')}
-            </ul>
-            <p><strong>Lien pour répondre :</strong> <a href="${link}" target="_blank">${link}</a></p>
+            <a href="${link}" target="_blank">Lien pour répondre</a>
         `;
         list.appendChild(div);
     });
 }
 
-// Fonction pour commencer un nouveau questionnaire
-document.getElementById('start-questionnaire').addEventListener('click', function () {
-    const name = prompt('Nom du questionnaire :');
-    if (!name) return alert('Le nom du questionnaire est obligatoire.');
-
-    currentQuestionnaire = { name, questions: [] };
-    alert(`Questionnaire "${name}" créé. Ajoutez maintenant des questions.`);
-});
-
-// Fonction pour ajouter une question au questionnaire en cours
-document.getElementById('add-question').addEventListener('click', function () {
-    if (!currentQuestionnaire) {
-        return alert('Vous devez d\'abord créer un questionnaire.');
-    }
-
-    const questionText = prompt('Texte de la question :');
-    const responses = prompt('Réponses possibles (séparées par une virgule) :').split(',').map((r) => r.trim());
-
-    if (!questionText || responses.length === 0) {
-        return alert('La question et les réponses sont obligatoires.');
-    }
-
-    currentQuestionnaire.questions.push({ question: questionText, responses });
-    alert('Question ajoutée avec succès.');
-});
-
-// Fonction pour finaliser le questionnaire et le sauvegarder
-document.getElementById('finalize-questionnaire').addEventListener('click', function () {
-    if (!currentQuestionnaire) {
-        return alert('Aucun questionnaire en cours.');
-    }
-
-    questionnaires.push(currentQuestionnaire);
-    localStorage.setItem('questionnaires', JSON.stringify(questionnaires));
-    alert(`Questionnaire "${currentQuestionnaire.name}" finalisé et sauvegardé.`);
-
-    currentQuestionnaire = null;
-    displayQuestionnaires();
-});
-
-// Afficher les questionnaires au chargement de la page
 displayQuestionnaires();
